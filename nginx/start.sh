@@ -4,5 +4,5 @@ docker run -d -p 80:80 \
 	      -v `pwd`/conf:/opt/nginx/conf:rw \
 	      -v `pwd`/html:/opt/nginx/html:rw \
 	      -v `pwd`/logs:/opt/nginx/logs:rw \
-	      --name test_nginx \
+	      --name nginx \
 	      zhaohongbo/nginx1.10
