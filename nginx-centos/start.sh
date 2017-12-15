@@ -5,4 +5,4 @@ docker run -d -p 80:80 \
 	      -v `pwd`/html:/opt/nginx/html:rw \
 	      -v `pwd`/logs:/opt/nginx/logs:rw \
 	      --name nginx \
-	      zhaohongbo/nginx-centos-1.10
+	      zhaohongbo/nginx-centos-1.10:v1
