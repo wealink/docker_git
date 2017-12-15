@@ -1,4 +1,4 @@
-FROM centos
+FROM zhaohongbo/centos
 MAINTAINER zhb "995977154@qq.com"
 ENV NGINX_VERSION 1.10.3
 ENV OPENSSL_VERSION 1.0.2k
