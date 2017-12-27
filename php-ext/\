@@ -1,0 +1,66 @@
+FROM zhaohongbo/centos
+MAINTAINER zhb "995977154@qq.com"
+
+
+ENV BUILD_ROOT /usr/local/src/php-7.2.0
+RUN yum install -y gcc make gcc-c++ wget install gd-devel zlib-devel libjpeg-devel libpng-devel libiconv-devel freetype-devel libxml2 libxml2-devel openssl openssl-devel curl-devel libxslt-devel libmcrypt-devel mhash mcrypt \
+	&& useradd -s /sbin/nologin -M nginx \
+	&& cd /usr/local/src \
+	&& wget http://cn.php.net/distributions/php-7.2.0.tar.gz \
+	&& tar -xf php-7.2.0.tar.gz \
+	&& cd php-7.2.0 \
+	&& ./configure \
+		--prefix=/opt/php7 \
+		--with-openssl \
+		--with-pcre-regex \
+		--with-kerberos \
+		--with-libdir=lib \
+		--with-libxml-dir \
+		--with-mysqli=shared,mysqlnd \
+		--with-pdo-mysql=shared,mysqlnd \
+		--with-pdo-sqlite \
+		--with-gd \
+		--with-iconv \
+		--with-zlib \
+		--with-xmlrpc \
+		--with-xsl \
+		--with-pear \
+		--with-gettext \
+		--with-curl \
+		--with-png-dir \
+		--with-jpeg-dir \
+		--with-freetype-dir \
+		--with-fpm-user=nginx \
+		--with-fpm-group=nginx \
+		--enable-mysqlnd \
+		--enable-zip \
+		--enable-inline-optimization \
+		--enable-shared \
+		--enable-libxml \
+		--enable-xml \
+		--enable-bcmath \
+		--enable-shmop \
+		--enable-sysvsem \
+		--enable-mbregex \
+		--enable-mbstring \
+		--enable-ftp \
+		--enable-pcntl \
+		--enable-sockets \
+		--enable-soap \
+		--enable-session \
+		--enable-opcache \
+		--enable-fpm \
+		--enable-maintainer-zts \
+		--enable-fileinfo \
+	&& make \
+	&& make install 
+RUN cd ../
+	#&& cp $BUILD_ROOT/php-7.2.0/php.ini-development /opt/php7/lib/php.ini \
+	#&& cp -R $BUILD_ROOT/php-7.2.0/sapi/fpm/init.d.php-fpm /etc/init.d/php-fpm \
+	#&& cp $BUILD_ROOT/php-7.2.0/etc/php-fpm.conf.default /opt/php7/etc/php-fpm.conf \
+	#&& cp $BUILD_ROOT/php-7.2.0/etc/php-fpm.d/www.conf.default /opt/php7/etc/php-fpm.d/www.conf \
+	#&& chmod 755 /etc/init.d/php-fpm \
+	#&& rm -rf /usr/local/src/php* \
+
+EXPOSE 9000
+CMD ["/opt/php7/sbin/php", "-a"]

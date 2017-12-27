@@ -1,0 +1,10 @@
+#!/bin/bash
+docker stop nginx && docker rm nginx
+docker run -d -p 80:80 \
+              -p 443:443 \
+	      -v `pwd`/conf/nginx.conf:/opt/nginx/nginx.conf:rw \
+	      -v `pwd`/conf/conf.d:/opt/nginx/conf.d:rw \
+	      -v `pwd`/logs:/opt/nginx/logs:rw \
+	      -v `pwd`/html:/opt/nginx/html:rw \
+	      --name nginx \
+	      zhaohongbo/nginx:1.12
