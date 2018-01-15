@@ -79,5 +79,9 @@ RUN set -x \
 
 #COPY docker-entrypoint.sh /
 #ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["haproxy", "-f", "/usr/local/etc/haproxy/haproxy.cfg"]
+EXPOSE 80
+EXPOSE 443
+EXPOSE 7000
+EXPOSE 9000
+CMD ["haproxy", "-db","-f", "/usr/local/etc/haproxy/haproxy.cfg"]
 
