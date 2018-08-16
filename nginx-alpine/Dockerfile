@@ -47,6 +47,7 @@ RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
 		--with-file-aio \
 		--with-http_v2_module \
 		--add-module=/usr/src/nginx_upstream_check_module \
+		--add-module=/usr/src/nginx-upsync-module \
 	" \
 	&& addgroup -S nginx \
 	&& adduser -D -S -h /var/cache/nginx -s /sbin/nologin -G nginx nginx \
@@ -84,7 +85,8 @@ RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
 	&& tar -zxC /usr/src -f nginx.tar.gz \
 	&& rm nginx.tar.gz \
 	&& cd /usr/src \
-	&& git clone https://github.com/yaoweibin/nginx_upstream_check_module.git \
+	&& git clone https://github.com/xiaokai-wang/nginx_upstream_check_module.git \
+	&& git clone https://github.com/weibocom/nginx-upsync-module.git \
 	&& cd nginx-$NGINX_VERSION \
 	&& patch -p1 < /usr/src/nginx_upstream_check_module/check_1.12.1\+.patch \
 	&& ./configure $CONFIG --with-debug \
