@@ -88,6 +88,8 @@ RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
 	&& git clone https://github.com/xiaokai-wang/nginx_upstream_check_module.git \
 	&& git clone https://github.com/weibocom/nginx-upsync-module.git \
 	&& cd nginx-$NGINX_VERSION \
+	&& sed -i 's/Server: nginx/Server: elite/g' src/http/ngx_http_header_filter_module.c \
+	&& sed -i 's/Server: " NGINX_VER CRLF/Server: elite" CRLF/g' src/http/ngx_http_header_filter_module.c \
 	&& patch -p1 < /usr/src/nginx_upstream_check_module/check_1.12.1\+.patch \
 	&& ./configure $CONFIG --with-debug \
 	&& make -j$(getconf _NPROCESSORS_ONLN) \
@@ -112,7 +114,7 @@ RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
 	&& ln -s ../../usr/lib/nginx/modules /opt/nginx/modules \
 	&& strip /usr/sbin/nginx* \
 	&& strip /usr/lib/nginx/modules/*.so \
-	&& rm -rf /usr/src/nginx* \
+	#&& rm -rf /usr/src/nginx* \
 	\
 	&& apk add --no-cache --virtual .gettext gettext \
 	&& mv /usr/bin/envsubst /tmp/ \
